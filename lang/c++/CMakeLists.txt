@@ -154,6 +154,7 @@ function (setup_avro_lib target lib_type)
       $<BUILD_INTERFACE:$<TARGET_NAME_IF_EXISTS:Snappy::snappy>>
       $<$<BOOL:${zstd_FOUND}>:$<BUILD_INTERFACE:$<TARGET_NAME_IF_EXISTS:${ZSTD_TARGET}>>>
       $<BUILD_INTERFACE:$<TARGET_NAME_IF_EXISTS:Boost::system>>
+      $<INSTALL_INTERFACE:fmt::fmt-header-only>
       $<INSTALL_INTERFACE:ZLIB::ZLIB>
       $<INSTALL_INTERFACE:$<TARGET_NAME_IF_EXISTS:Snappy::snappy>>
       $<$<BOOL:${zstd_FOUND}>:$<INSTALL_INTERFACE:$<TARGET_NAME_IF_EXISTS:${ZSTD_TARGET}>>>
