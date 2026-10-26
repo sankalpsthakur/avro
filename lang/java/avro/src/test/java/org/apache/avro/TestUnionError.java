@@ -78,6 +78,7 @@ public class TestUnionError {
     InputStream ins = new ByteArrayInputStream(outs.toByteArray());
     BinaryDecoder decoder = DecoderFactory.get().binaryDecoder(ins, null);
 
+    // Dedicated instance so the global fastread default is unchanged (AVRO-4326).
     GenericData data = new GenericData();
     data.setFastReaderEnabled(false);
     GenericDatumReader<GenericRecord> datumReader = new GenericDatumReader<>(writerSchema, readerSchema, data);

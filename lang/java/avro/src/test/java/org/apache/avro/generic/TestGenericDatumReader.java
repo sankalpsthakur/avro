@@ -503,6 +503,7 @@ public class TestGenericDatumReader {
   }
 
   private static GenericDatumReader<Object> readerFor(Schema schema, boolean fastReader) {
+    // Dedicated instance so the global fastread default is unchanged (AVRO-4326).
     GenericData data = new GenericData();
     data.setFastReaderEnabled(fastReader);
     return new GenericDatumReader<>(schema, schema, data);
@@ -740,6 +741,7 @@ public class TestGenericDatumReader {
           .parse("{\"type\":\"record\",\"name\":\"R\",\"fields\":[{\"name\":\"a\",\"type\":\"long\"}]}");
       byte[] data = encodeVarints(2000L, 0L, 42L);
       for (boolean fast : new boolean[] { true, false }) {
+        // Dedicated instance so the global fastread default is unchanged (AVRO-4326).
         GenericData data2 = new GenericData();
         data2.setFastReaderEnabled(fast);
         GenericDatumReader<Object> r = new GenericDatumReader<>(writer, reader, data2);
