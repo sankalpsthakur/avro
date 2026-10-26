@@ -129,6 +129,7 @@ public class TestSchemaCompatibilityEnumDefaults {
     byte[] bytes = baos.toByteArray();
     Decoder decoder = DecoderFactory.get().resolvingDecoder(writerSchema, readerSchema,
         DecoderFactory.get().binaryDecoder(bytes, null));
+    // Dedicated instance so the global fastread default is unchanged (AVRO-4326).
     GenericData data = new GenericData();
     data.setFastReaderEnabled(false);
     DatumReader<Object> datumReader = new GenericDatumReader<>(readerSchema, readerSchema, data);

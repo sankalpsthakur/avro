@@ -213,13 +213,33 @@ public class GenericData {
   private boolean fastReaderEnabled = "true".equalsIgnoreCase(System.getProperty(FAST_READER_PROP, "true"));
   private FastReaderBuilder fastReaderBuilder = null;
 
+  /**
+   * Enable or disable the fast reader for this data model.
+   * <p>
+   * Invoking this on the shared instance returned by {@link #get()} changes
+   * process-wide default behaviour and can cause later tests in the same JVM to
+   * run with a different reader than {@code org.apache.avro.fastread} requested.
+   * Callers that need a specific setting should construct a dedicated
+   * {@code GenericData} (or {@code SpecificData}/{@code ReflectData}) instance.
+   *
+   * @param flag true to enable the fast reader for this instance
+   * @return this for chaining
+   */
   public GenericData setFastReaderEnabled(boolean flag) {
     this.fastReaderEnabled = flag;
     return this;
   }
 
   public boolean isFastReaderEnabled() {
-    return fastReaderEnabled && FastReaderBuilder.isSupportedData(this);
+    return isFastReaderEnabledFlag() && FastReaderBuilder.isSupportedData(this);
+  }
+
+  /**
+   * Configured fast-reader flag, ignoring whether {@link FastReaderBuilder}
+   * supports this model. Visible for tests (AVRO-4326).
+   */
+  boolean isFastReaderEnabledFlag() {
+    return fastReaderEnabled;
   }
 
   public FastReaderBuilder getFastReaderBuilder() {

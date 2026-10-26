@@ -99,7 +99,7 @@ public class TestFastReaderBuilderClassLoading {
 
       GenericRecord record = new GenericRecordBuilder(recordSchema).set("value", TEST_VALUE).build();
 
-      // Decode with fast reader enabled
+      // Dedicated instance so the global fastread default is unchanged (AVRO-4326).
       GenericData data = new SpecificData();
       data.setFastReaderEnabled(true);
       return FastReaderBuilderJavaClassTest.roundTrip(record, data);

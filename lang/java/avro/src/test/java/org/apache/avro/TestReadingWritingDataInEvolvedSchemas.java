@@ -450,6 +450,7 @@ public class TestReadingWritingDataInEvolvedSchemas {
     if (blob == null) {
       return null;
     }
+    // Dedicated instance so the global fastread default is unchanged (AVRO-4326).
     GenericData data = new GenericData();
     data.setFastReaderEnabled(true);
     GenericDatumReader<Record> reader = new GenericDatumReader<>(null, null, data);

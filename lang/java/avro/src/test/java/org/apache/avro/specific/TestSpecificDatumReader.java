@@ -69,8 +69,7 @@ public class TestSpecificDatumReader {
   public static class MyReader extends SpecificDatumReader<MyData> {
 
     MyReader() {
-      // Use a new data model instead of the singleton in order to avoid modifying the
-      // setFastReaderEnabled state for other tests.
+      // Dedicated model so this test does not change SpecificData.get() (AVRO-4326).
       super(null, null, new SpecificData());
     }
 
