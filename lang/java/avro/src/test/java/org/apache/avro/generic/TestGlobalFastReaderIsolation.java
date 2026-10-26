@@ -64,11 +64,11 @@ public class TestGlobalFastReaderIsolation {
 
     GenericData isolatedGeneric = new GenericData();
     isolatedGeneric.setFastReaderEnabled(!expected);
-    SpecificData isolatedSpecific = new SpecificData();
+    GenericData isolatedSpecific = new SpecificData();
     isolatedSpecific.setFastReaderEnabled(!expected);
-    ReflectData isolatedReflect = new ReflectData();
+    GenericData isolatedReflect = new ReflectData();
     isolatedReflect.setFastReaderEnabled(!expected);
-    ReflectData.AllowNull isolatedAllowNull = new ReflectData.AllowNull();
+    GenericData isolatedAllowNull = new ReflectData.AllowNull();
     isolatedAllowNull.setFastReaderEnabled(!expected);
 
     assertEquals(!expected, isolatedGeneric.isFastReaderEnabledFlag());
@@ -124,7 +124,8 @@ public class TestGlobalFastReaderIsolation {
     assertTrue(enabled.isFastReaderEnabledFlag());
     assertFalse(disabled.isFastReaderEnabledFlag());
     assertEquals(FastReaderIsolationExtension.expectedFastReader(), GenericData.get().isFastReaderEnabledFlag());
-    assertEquals(FastReaderIsolationExtension.expectedFastReader(), SpecificData.get().isFastReaderEnabledFlag());
+    assertEquals(FastReaderIsolationExtension.expectedFastReader(),
+        ((GenericData) SpecificData.get()).isFastReaderEnabledFlag());
   }
 
   private static Path testJavaRoot() {
